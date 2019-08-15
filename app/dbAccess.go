@@ -8,6 +8,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+
+	"github.com/ShuheiIshihara/KigenKanri/model"
 )
 
 // DB接続情報の構造体
@@ -45,5 +47,29 @@ func InitDbConnection() *gorm.DB {
 		panic(err.Error())
 	}
 	return db
-	// defer db.Close()
+}
+
+// 一覧取得
+func SearchKigenKanriListQuery(db *gorm.DB) {
+
+	usebyDateInfoList := []model.TUsebyDateInfo{}
+
+	db.LogMode(true)
+
+	// 全件取得
+	if err := db.First(&usebyDateInfoList).Error; err != nil {
+		panic(err)
+	}
+
+	db.Select("ID").Find(&usebyDateInfoList)
+	fmt.Println(usebyDateInfoList)
+
+	// for count, record := range usebyDateInfoList{
+	// 	fmt.Println(count)
+	// 	fmt.Println("id:" + fmt.Sprint(record.Id))
+	// 	// fmt.Println("GoodsId:" + fmt.Sprint(record.GOODS_ID))
+	// 	// fmt.Println("UserKbn:" + fmt.Sprint(record.USEBY_KBN))
+	// 	// fmt.Println("LimitDate:" + fmt.Sprint(record.LIMIT_DATE))
+	// 	}
+
 }

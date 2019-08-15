@@ -15,7 +15,7 @@ func Test(c *gin.Context) {
 // 一覧取得
 func GetList(c *gin.Context) {
 	name := c.Query("name")
-	fmt.Printf(name)
+	fmt.Println(name)
 	message := SearchKigenKanriList(name)
 	c.String(http.StatusOK, message)
 }
