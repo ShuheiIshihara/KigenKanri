@@ -6,8 +6,10 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"database/sql"
+   _ "github.com/go-sql-driver/mysql"
+	// "github.com/jinzhu/gorm"
+	// _ "github.com/jinzhu/gorm/dialects/mysql"
 
 	"github.com/ShuheiIshihara/KigenKanri/model"
 )
@@ -22,7 +24,7 @@ type DbConnection struct {
 }
 
 // DB接続
-func InitDbConnection() *gorm.DB {
+func InitDbConnection() *sql.DB {
 
 	// 接続情報(json)を読み込む
 	raw, err := ioutil.ReadFile("./resource/dbConnection.json")
@@ -42,7 +44,7 @@ func InitDbConnection() *gorm.DB {
 	DBNAME := dbConn.DbName
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
-	db, err := gorm.Open(DBMS, CONNECT)
+	db, err := sql.Open(DBMS, CONNECT)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -50,26 +52,23 @@ func InitDbConnection() *gorm.DB {
 }
 
 // 一覧取得
-func SearchKigenKanriListQuery(db *gorm.DB) {
+func SearchKigenKanriListQuery(db *sql.DB) {
 
-	usebyDateInfoList := []model.TUsebyDateInfo{}
+	var usebyDateInfoList model.Test
 
-	db.LogMode(true)
-
-	// 全件取得
-	if err := db.First(&usebyDateInfoList).Error; err != nil {
+	rows, err := db.Query("Select id, GOODS_ID from tests ")
+	if err != nil {
 		panic(err)
 	}
-
-	db.Select("ID").Find(&usebyDateInfoList)
-	fmt.Println(usebyDateInfoList)
-
-	// for count, record := range usebyDateInfoList{
-	// 	fmt.Println(count)
-	// 	fmt.Println("id:" + fmt.Sprint(record.Id))
-	// 	// fmt.Println("GoodsId:" + fmt.Sprint(record.GOODS_ID))
-	// 	// fmt.Println("UserKbn:" + fmt.Sprint(record.USEBY_KBN))
-	// 	// fmt.Println("LimitDate:" + fmt.Sprint(record.LIMIT_DATE))
-	// 	}
-
+	
+	var id int
+	var goods_id int
+	for rows.Next() {
+		err := rows.Scan(&id, &goods_id)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(id, goods_id)
+	}
+	
 }

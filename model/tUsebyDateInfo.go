@@ -2,7 +2,7 @@ package model
 
 // 消費期限テーブル（トランザクション）
 type TUsebyDateInfo struct {
-	Id int `db:"ID" column:"id"`
+	Id int `json:"id"`
 	// GOODS_ID    int64  `json:"goods_id"`
 	// USEBY_KBN   string `json:"useby_kbn"`
 	// LIMIT_DATE  string `json:"limit_date"`
