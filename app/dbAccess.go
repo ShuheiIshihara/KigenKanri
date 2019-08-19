@@ -11,7 +11,7 @@ import (
 	// "github.com/jinzhu/gorm"
 	// _ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"github.com/ShuheiIshihara/KigenKanri/model"
+	// "github.com/ShuheiIshihara/KigenKanri/model"
 )
 
 // DB接続情報の構造体
@@ -54,7 +54,7 @@ func InitDbConnection() *sql.DB {
 // 一覧取得
 func SearchKigenKanriListQuery(db *sql.DB) {
 
-	var usebyDateInfoList model.Test
+	// var usebyDateInfoList model.Test
 
 	rows, err := db.Query("Select id, GOODS_ID from tests ")
 	if err != nil {
