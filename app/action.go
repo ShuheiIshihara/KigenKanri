@@ -5,10 +5,9 @@ import (
 	
 	"database/sql"
    _ "github.com/go-sql-driver/mysql"
-	// "github.com/jinzhu/gorm"
-	// _ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+// 一覧取得
 func SearchKigenKanriList(keyWord string) (result string) {
 	result = "一覧取得予定: " + keyWord
 	fmt.Println(result)
@@ -18,4 +17,9 @@ func SearchKigenKanriList(keyWord string) (result string) {
 
 	defer db.Close()
 	return result
+}
+
+// 新規登録
+func RegisterData(keyWord string) (result string) {
+	return ""
 }
