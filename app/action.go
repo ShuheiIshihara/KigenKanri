@@ -23,3 +23,8 @@ func SearchKigenKanriList(keyWord string) (result string) {
 func RegisterData(keyWord string) (result string) {
 	return ""
 }
+
+// １件更新
+func UpdateData(keyWord string) (result string) {
+	return ""
+}
