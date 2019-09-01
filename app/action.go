@@ -28,3 +28,8 @@ func RegisterData(keyWord string) (result string) {
 func UpdateData(keyWord string) (result string) {
 	return ""
 }
+
+// 1件削除
+func DeleteData(keyWord string) (result string) {
+	return ""
+}
